@@ -23,10 +23,6 @@
     <button class="next-button hidden" onclick="loadNext()">Next</button>
   </div>
 
-  <div class="popup hidden">
-    <p>Correct! You selected: <span id="selectedOption"></span></p>
-  </div>
-
   <script>
     // Array of questions
     const questions = [
@@ -56,25 +52,24 @@
       var isCorrect = selectedOptionIndex === question.answer;
 
       if (isCorrect) {
-        showPopup(selectedOptionIndex);
+        showNextButton();
       } else {
         // Continue to the next question or page
         loadNext();
       }
     }
 
-    function showPopup(selectedOptionIndex) {
-      var popup = document.querySelector(".popup");
-      var selectedOption = questions[currentQuestionIndex].options[selectedOptionIndex];
-      var selectedOptionElement = document.querySelector("#selectedOption");
-      selectedOptionElement.textContent = selectedOption;
-      popup.classList.remove("hidden");
+    function showNextButton() {
+      var nextButton = document.querySelector(".next-button");
+      nextButton.classList.remove("hidden");
     }
 
     function loadNext() {
       currentQuestionIndex++;
       if (currentQuestionIndex < questions.length) {
         loadQuestion();
+        var nextButton = document.querySelector(".next-button");
+        nextButton.classList.add("hidden");
       } else {
         // No more questions, navigate to next page
         window.location.href = "next_page.html";
