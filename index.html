@@ -6,11 +6,31 @@
   <style>
     /* Add your custom styles here */
     body {
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.option {
+  font-size: 24px; /* Adjust the font size as needed */
+  padding: 10px 20px; /* Adjust the padding as needed */
+  margin: 0 10px; /* Adjust the margin as needed */
+}
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -64,6 +84,7 @@
     .next-button:hover {
       background-color: #45a049;
     }
+    
   </style>
 </head>
 <body>
