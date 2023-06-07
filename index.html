@@ -5,9 +5,10 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <h1>Chemistry Project</h1>
-  <div id="slide-container" class="slide-container">
-    <div class="slide">
+  <div class="lab-background"></div>
+  <div class="container">
+    <h1>Chemistry Project</h1>
+    <div id="question-container" class="question-container">
       <div id="question" class="question"></div>
       <div id="options" class="options">
         <button class="option" data-index="0">Option 1</button>
@@ -16,12 +17,10 @@
         <button class="option" data-index="3">Option 4</button>
       </div>
     </div>
-    <div class="slide hidden">
-      <div id="feedback" class="feedback"></div>
-      <div id="button-container" class="button-container">
-        <button id="select-button" class="select-button">Select</button>
-        <button id="next-button" class="next-button hidden">Next</button>
-      </div>
+    <div id="feedback" class="feedback"></div>
+    <div id="button-container" class="button-container">
+      <button id="select-button" class="select-button">Select</button>
+      <button id="next-button" class="next-button hidden">Next</button>
     </div>
   </div>
   <script src="index.js"></script>
