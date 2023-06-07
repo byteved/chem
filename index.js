@@ -1,68 +1,101 @@
-// Get the draggable options and the drop zone
-const options = document.querySelectorAll('.option');
-const dropzone = document.querySelector('.dropzone');
+const questions = [
+  {
+    question: "Question 1: What is the capital of France?",
+    options: ["Paris", "London", "Rome", "Berlin"],
+    correctOption: "Paris"
+  },
+  {
+    question: "Question 2: What is the largest planet in our solar system?",
+    options: ["Mars", "Saturn", "Jupiter", "Venus"],
+    correctOption: "Jupiter"
+  },
+  {
+    question: "Question 3: Who painted the Mona Lisa?",
+    options: ["Michelangelo", "Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso"],
+    correctOption: "Leonardo da Vinci"
+  }
+];
 
-// Add event listeners to the options for drag events
-options.forEach(option => {
-  option.addEventListener('dragstart', dragStart);
-  option.addEventListener('dragend', dragEnd);
-  option.addEventListener('mousedown', optionClick);
-});
+let currentQuestionIndex = 0;
+const questionContainer = document.getElementById("question-container");
+const questionElement = document.getElementById("question");
+const optionsElement = document.getElementById("options");
+const feedbackElement = document.getElementById("feedback");
+const submitButton = document.getElementById("submit-btn");
 
-// Add event listeners to the drop zone for drop events
-dropzone.addEventListener('dragover', dragOver);
-dropzone.addEventListener('dragenter', dragEnter);
-dropzone.addEventListener('dragleave', dragLeave);
-dropzone.addEventListener('drop', dragDrop);
-
-// Drag functions
-function dragStart(event) {
-  event.dataTransfer.setData('text/plain', event.target.id);
+// Initialize the game
+function initializeGame() {
+  loadQuestion();
+  submitButton.addEventListener("click", handleQuestionSubmit);
 }
 
-function dragEnd() {
-  // Do any necessary cleanup or visual changes after dragging ends
+// Load the current question and options
+function loadQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
+  questionElement.innerText = currentQuestion.question;
+  optionsElement.innerHTML = "";
+
+  currentQuestion.options.forEach((option, index) => {
+    const optionElement = document.createElement("div");
+    optionElement.classList.add("option");
+    optionElement.draggable = true;
+    optionElement.innerText = option;
+    optionElement.setAttribute("data-index", index);
+    optionsElement.appendChild(optionElement);
+  });
+
+  feedbackElement.innerText = "";
 }
 
-// Option click function
-function optionClick(event) {
-  const option = event.target;
+// Handle submitting the current question
+function handleQuestionSubmit() {
+  const selectedOption = document.querySelector(".option.selected");
 
-  // Animate the option moving towards the drop zone
-  option.classList.add('moving');
-  setTimeout(() => {
-    option.style.display = 'none';
-    option.classList.remove('moving');
-  }, 500);
-}
+  if (selectedOption) {
+    const selectedOptionIndex = parseInt(selectedOption.getAttribute("data-index"));
+    const currentQuestion = questions[currentQuestionIndex];
 
-// Drop zone functions
-function dragOver(event) {
-  event.preventDefault();
-}
+    if (currentQuestion.correctOption === currentQuestion.options[selectedOptionIndex]) {
+      feedbackElement.innerText = "Correct!";
+      feedbackElement.style.color = "green";
+    } else {
+      feedbackElement.innerText = "Incorrect!";
+      feedbackElement.style.color = "red";
+    }
 
-function dragEnter(event) {
-  event.preventDefault();
-  dropzone.style.backgroundColor = '#999';
-}
+    selectedOption.classList.remove("selected");
+    selectedOption.removeAttribute("draggable");
+    submitButton.disabled = true;
 
-function dragLeave() {
-  dropzone.style.backgroundColor = '#ccc';
-}
-
-function dragDrop(event) {
-  event.preventDefault();
-  dropzone.style.backgroundColor = '#ccc';
-
-  const optionId = event.dataTransfer.getData('text/plain');
-  const option = document.getElementById(optionId);
-
-  // Check if the selected option is correct and update the drop zone text
-  if (option.innerText === 'Option 2') {
-    dropzone.innerText = 'Correct!';
-    dropzone.style.backgroundColor = 'green';
+    if (currentQuestionIndex < questions.length - 1) {
+      setTimeout(() => {
+        currentQuestionIndex++;
+        loadQuestion();
+        submitButton.disabled = false;
+      }, 1500);
+    } else {
+      setTimeout(() => {
+        feedbackElement.innerText = "Game Over!";
+        feedbackElement.style.color = "black";
+        submitButton.style.display = "none";
+      }, 1500);
+    }
   } else {
-    dropzone.innerText = 'Incorrect!';
-    dropzone.style.backgroundColor = 'red';
+    feedbackElement.innerText = "Please select an option.";
+    feedbackElement.style.color = "red";
   }
 }
+
+// Add event listeners for option selection
+optionsElement.addEventListener("click", event => {
+  const selectedOption = event.target;
+  if (selectedOption.classList.contains("option")) {
+    const selectedOptionIndex = parseInt(selectedOption.getAttribute("data-index"));
+    const options = optionsElement.querySelectorAll(".option");
+    options.forEach(option => option.classList.remove("selected"));
+    selectedOption.classList.add("selected");
+  }
+});
+
+// Initialize the game
+initializeGame();
