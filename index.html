@@ -98,6 +98,7 @@
         <button class="option" onclick="checkAnswer(2)">Option 3</button>
         <button class="option" onclick="checkAnswer(3)">Option 4</button>
       </div>
+      <p id="demo"></p>
     </div>
     <div class="video-container">
       <video src="" controls></video>
@@ -194,8 +195,10 @@
 
       if (selectedOptionIndex === level.correctOptionIndex) {
         showVideo(level.videoSrc);
+        document.getElementById("demo").innerHTML = "Correct!";
       } else {
         moveToNextLevel();
+        document.getElementById("demo").innerHTML = "Wrong....";
       }
     }
 
