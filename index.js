@@ -1,4 +1,3 @@
-
 // Get the draggable options and the drop zone
 const options = document.querySelectorAll('.option');
 const dropzone = document.querySelector('.dropzone');
@@ -17,7 +16,7 @@ dropzone.addEventListener('drop', dragDrop);
 
 // Drag functions
 function dragStart(event) {
-  event.dataTransfer.setData('text', event.target.id);
+  event.dataTransfer.setData('text/plain', event.target.id);
 }
 
 function dragEnd() {
@@ -42,7 +41,7 @@ function dragDrop(event) {
   event.preventDefault();
   dropzone.style.backgroundColor = '#ccc';
 
-  const optionId = event.dataTransfer.getData('text');
+  const optionId = event.dataTransfer.getData('text/plain');
   const option = document.getElementById(optionId);
 
   // Check if the selected option is correct and update the drop zone text
