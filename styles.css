@@ -1,13 +1,43 @@
+body {
+  background-image: url("lab-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Subtract the height of the title */
   text-align: center;
 }
 
+.animation-container {
+  width: 100%;
+  height: 300px;
+  background-color: #f2f2f2;
+  margin-bottom: 20px;
+}
+
 .question-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
@@ -37,7 +67,7 @@
   transition: border 0.3s ease-in-out;
 }
 
-.option.selected {
+.option.correct {
   border: 5px solid #4CAF50;
 }
 
@@ -55,17 +85,17 @@
   margin-bottom: 10px;
 }
 
-.rainbow-background {
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  background-size: 200% 200%;
-  animation: rainbow-effect 3s linear infinite;
+.select-button-container {
+  margin-top: 20px;
 }
 
-@keyframes rainbow-effect {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
+.select-button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #ffffff;
+  cursor: pointer;
 }
