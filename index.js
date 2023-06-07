@@ -1,95 +1,59 @@
-const options = document.querySelectorAll('.option');
-const selectedImage = document.getElementById('selected-image');
-const feedbackElement = document.getElementById('feedback');
-
-const levels = [
-  {
-    question: 'Question 1',
-    options: [
-      { text: 'Option 1', image: 'option1.jpg' },
-      { text: 'Option 2', image: 'option2.jpg' },
-      { text: 'Option 3', image: 'option3.jpg' },
-      { text: 'Option 4', image: 'option4.jpg' }
-    ],
-    correctOptionIndex: 2 // Index of the correct option (starting from 0)
-  },
-  // Add more levels here
-];
-
-let currentLevel = 0;
-let rainbowTimeout;
-
-// Set up the current level
-function setUpLevel(level) {
-  const currentLevelData = levels[level];
-
-  // Clear previous selection
-  options.forEach(option => {
-    option.classList.remove('selected');
+$(document).ready(function() {
+  // Enable draggable functionality for options
+  $(".option").draggable({
+    revert: "invalid"
   });
 
-  // Update the question
-  document.getElementById('question').innerText = currentLevelData.question;
+  // Enable droppable functionality for question
+  $(".question").droppable({
+    accept: ".option",
+    drop: function(event, ui) {
+      var selectedOption = ui.draggable;
+      var selectedText = selectedOption.text();
+      var isCorrect = checkAnswer(selectedText);
 
-  // Update the options and add click event listeners
-  options.forEach((option, index) => {
-    option.innerText = currentLevelData.options[index].text;
-
-    option.addEventListener('click', () => {
-      handleOptionSelection(index);
-    });
-  });
-
-  // Clear the selected image
-  selectedImage.src = '';
-
-  // Clear the feedback
-  feedbackElement.innerText = '';
-}
-
-// Handle option selection
-function handleOptionSelection(selectedIndex) {
-  const currentLevelData = levels[currentLevel];
-  const selectedOption = options[selectedIndex];
-
-  // Add a border to the selected option
-  selectedOption.classList.add('selected');
-
-  // Display the selected image
-  selectedImage.src = currentLevelData.options[selectedIndex].image;
-
-  if (selectedIndex === currentLevelData.correctOptionIndex) {
-    // Correct option selected
-    feedbackElement.innerText = 'Correct!';
-    document.body.classList.add('rainbow-background');
-
-    clearTimeout(rainbowTimeout);
-    rainbowTimeout = setTimeout(() => {
-      document.body.classList.remove('rainbow-background');
-    }, 1000);
-
-    // Move to the next level after a brief delay
-    setTimeout(() => {
-      currentLevel++;
-
-      if (currentLevel < levels.length) {
-        // Proceed to the next level
-        setUpLevel(currentLevel);
+      if (isCorrect) {
+        animateCorrectOption();
       } else {
-        // Reached the end of the game
-        feedbackElement.innerText = 'Game Over!';
-        options.forEach(option => {
-          option.removeEventListener('click', handleOptionSelection);
-          option.classList.remove('selected');
-          option.style.cursor = 'default';
-        });
+        // Provide visual feedback for incorrect answer
+        selectedOption.effect("shake");
       }
-    }, 1000);
-  } else {
-    // Incorrect option selected
-    feedbackElement.innerText = 'Try again!';
-  }
-}
+    }
+  });
 
-// Start the game by setting up the first level
-setUpLevel(currentLevel);
+  // "Next" button click event
+  $(".next-btn button").on("click", function() {
+    // Load the next set of questions
+    loadNextQuestion();
+  });
+
+  // Function to check if the selected option is correct or incorrect
+  function checkAnswer(selectedText) {
+    // Implement your logic to check the answer here
+    // Return true if correct, false otherwise
+    return selectedText === "Paris";
+  }
+
+  // Function to animate the correct option and change the central image
+  function animateCorrectOption() {
+    // Add animation to the central image container
+    var animationContainer = $("#animationContainer");
+    animationContainer.addClass("animate");
+
+    // Change the central image after a delay
+    setTimeout(function() {
+      animationContainer.html("<img src='animation.gif' alt='Animation'>");
+    }, 1000);
+  }
+
+  // Function to load the next question and reset the game state
+  function loadNextQuestion() {
+    // Implement the logic to load the next question and reset the game state here
+    // Reset the central image and options
+    var animationContainer = $("#animationContainer");
+    animationContainer.removeClass("animate");
+    animationContainer.html("");
+
+    $(".option").css("top", "0").css("left", "0");
+  }
+});

@@ -1,158 +1,41 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.lab-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('lab_background.jpg');
-  background-size: cover;
-  z-index: -1;
-}
-
-h1 {
-  margin: 0;
-  padding: 20px;
-  text-align: center;
-  font-size: 32px;
-  color: #ffffff;
-  background-color: #6200ee;
-}
-
 .container {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-grow: 1;
-}
-
-.animation-container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-}
-
-.quiz-container {
-  width: 100%;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.question-container {
-  margin: 20px;
-  border-radius: 5px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  height: 100vh;
 }
 
 .question {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  position: relative;
+  text-align: center;
+}
+
+#questionText {
+  font-size: 20px;
+}
+
+.animation-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
 }
 
 .options {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  padding: 20px;
   margin: 10px;
-  font-size: 20px;
-  background-color: #6200ee;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
+  cursor: move;
+  padding: 5px;
+  background-color: #f1f1f1;
 }
 
-.option.correct {
-  background-color: #00c853;
-  animation: rainbow-flash 1s infinite;
+.next-btn {
+  margin-top: 20px;
 }
-
-@keyframes rainbow-flash {
-  0% {
-    background-color: #ff0000;
-  }
-  14% {
-    background-color: #ff8000;
-  }
-  28% {
-    background-color: #ffff00;
-  }
-  42% {
-    background-color: #80ff00;
-  }
-  57% {
-    background-color: #00ff80;
-  }
-  71% {
-    background-color: #0080ff;
-  }
-  85% {
-    background-color: #8000ff;
-  }
-  100% {
-    background-color: #ff0080;
-  }
-}
-
-.feedback {
-  font-size: 20px;
-  color: #ffffff;
-  background-color: #6200ee;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-}
-
-.button-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.select-button,
-.next-button {
-  padding: 10px 20px;
-  font-weight: bold;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  background-color: #6200ee;
-  color: #ffffff;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.next-button {
-  background-color: #03dac6;
-}
-
-.hidden {
-  display: none;
-}
-

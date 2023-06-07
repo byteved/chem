@@ -1,62 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
 <body>
-  <div class="lab-background"></div>
-  <h1>Chemistry Quiz</h1>
   <div class="container">
-    <div class="animation-container">
-      <!-- Place your animation or other content here -->
+    <div class="question">
+      <p id="questionText">What is the capital of France?</p>
+      <div id="animationContainer" class="animation-container"></div>
     </div>
-    <div class="quiz-container">
-      <div class="question-container">
-        <div class="question">Question goes here</div>
-        <div class="options">
-          <button class="option">Option 1</button>
-          <button class="option">Option 2</button>
-          <button class="option">Option 3</button>
-          <button class="option">Option 4</button>
-        </div>
-        <div class="feedback hidden"></div>
-        <div class="button-container">
-          <button class="select-button">Select</button>
-          <button class="next-button hidden">Next</button>
-        </div>
+    <div class="options">
+      <div class="option">
+        <p>Paris</p>
       </div>
-
-      <!-- Add more question containers for additional levels -->
-      <div class="question-container">
-        <div class="question">Question goes here</div>
-        <div class="options">
-          <button class="option">Option 1</button>
-          <button class="option">Option 2</button>
-          <button class="option">Option 3</button>
-          <button class="option">Option 4</button>
-        </div>
-        <div class="feedback hidden"></div>
-        <div class="button-container">
-          <button class="select-button">Select</button>
-          <button class="next-button hidden">Next</button>
-        </div>
+      <div class="option">
+        <p>London</p>
       </div>
-
-      <!-- Add more question containers for additional levels -->
-      <div class="question-container">
-        <div class="question">Question goes here</div>
-        <div class="options">
-          <button class="option">Option 1</button>
-          <button class="option">Option 2</button>
-          <button class="option">Option 3</button>
-          <button class="option">Option 4</button>
-        </div>
-        <div class="feedback hidden"></div>
-        <div class="button-container">
-          <button class="select-button">Select</button>
-          <button class="next-button hidden">Next</button>
-        </div>
+      <div class="option">
+        <p>Rome</p>
       </div>
-
-      <!-- Add more question containers for additional levels -->
-      <!-- Add as many question containers as needed for the desired number of levels -->
+      <div class="option">
+        <p>Madrid</p>
+      </div>
+    </div>
+    <div class="next-btn">
+      <button>Next</button>
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="index.js"></script>
 </body>
+</html>
