@@ -24,17 +24,30 @@
   gap: 10px;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+.option {
+  padding: 40px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  width: 300px;
+  height: 200px;
+  transition: border 0.3s ease-in-out;
 }
 
-.option {
-  padding: 15px 30px;
-  background-color: #f2f2f2;
-  cursor: move;
-  flex: 1;
+.option.selected {
+  border: 5px solid #4CAF50;
+}
+
+.image-container {
+  margin-top: 20px;
+}
+
+#selected-image {
+  max-width: 400px;
+  max-height: 400px;
 }
 
 .feedback {
@@ -42,11 +55,17 @@
   margin-bottom: 10px;
 }
 
-#submit-btn {
-  padding: 15px 30px;
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
+.rainbow-background {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 200% 200%;
+  animation: rainbow-effect 3s linear infinite;
+}
+
+@keyframes rainbow-effect {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }

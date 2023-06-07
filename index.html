@@ -10,18 +10,16 @@
     <div id="question-container" class="question-container">
       <div id="question" class="question"></div>
       <div id="options" class="options">
-        <div class="row">
-          <button class="option" draggable="true"></button>
-          <button class="option" draggable="true"></button>
-        </div>
-        <div class="row">
-          <button class="option" draggable="true"></button>
-          <button class="option" draggable="true"></button>
-        </div>
+        <button class="option" data-index="0">Option 1</button>
+        <button class="option" data-index="1">Option 2</button>
+        <button class="option" data-index="2">Option 3</button>
+        <button class="option" data-index="3">Option 4</button>
       </div>
     </div>
+    <div id="image-container" class="image-container">
+      <img id="selected-image" src="" alt="Selected Option Image">
+    </div>
     <div id="feedback" class="feedback"></div>
-    <button id="submit-btn">Submit</button>
   </div>
   <script src="index.js"></script>
 </body>

@@ -1,101 +1,90 @@
-const questions = [
+const options = document.querySelectorAll('.option');
+const selectedImage = document.getElementById('selected-image');
+const feedbackElement = document.getElementById('feedback');
+
+const levels = [
   {
-    question: "Question 1: What is the capital of France?",
-    options: ["Paris", "London", "Rome", "Berlin"],
-    correctOption: "Paris"
+    question: 'Question 1',
+    options: [
+      { text: 'Option 1', image: 'option1.jpg' },
+      { text: 'Option 2', image: 'option2.jpg' },
+      { text: 'Option 3', image: 'option3.jpg' },
+      { text: 'Option 4', image: 'option4.jpg' }
+    ],
+    correctOptionIndex: 2 // Index of the correct option (starting from 0)
   },
-  {
-    question: "Question 2: What is the largest planet in our solar system?",
-    options: ["Mars", "Saturn", "Jupiter", "Venus"],
-    correctOption: "Jupiter"
-  },
-  {
-    question: "Question 3: Who painted the Mona Lisa?",
-    options: ["Michelangelo", "Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso"],
-    correctOption: "Leonardo da Vinci"
-  }
+  // Add more levels here
 ];
 
-let currentQuestionIndex = 0;
-const questionContainer = document.getElementById("question-container");
-const questionElement = document.getElementById("question");
-const optionsElement = document.getElementById("options");
-const feedbackElement = document.getElementById("feedback");
-const submitButton = document.getElementById("submit-btn");
+let currentLevel = 0;
 
-// Initialize the game
-function initializeGame() {
-  loadQuestion();
-  submitButton.addEventListener("click", handleQuestionSubmit);
-}
+// Set up the current level
+function setUpLevel(level) {
+  const currentLevelData = levels[level];
 
-// Load the current question and options
-function loadQuestion() {
-  const currentQuestion = questions[currentQuestionIndex];
-  questionElement.innerText = currentQuestion.question;
-  optionsElement.innerHTML = "";
-
-  currentQuestion.options.forEach((option, index) => {
-    const optionElement = document.createElement("div");
-    optionElement.classList.add("option");
-    optionElement.draggable = true;
-    optionElement.innerText = option;
-    optionElement.setAttribute("data-index", index);
-    optionsElement.appendChild(optionElement);
+  // Clear previous selection
+  options.forEach(option => {
+    option.classList.remove('selected');
   });
 
-  feedbackElement.innerText = "";
+  // Update the question
+  document.getElementById('question').innerText = currentLevelData.question;
+
+  // Update the options and add click event listeners
+  options.forEach((option, index) => {
+    option.innerText = currentLevelData.options[index].text;
+
+    option.addEventListener('click', () => {
+      handleOptionSelection(index);
+    });
+  });
+
+  // Clear the selected image
+  selectedImage.src = '';
+
+  // Clear the feedback
+  feedbackElement.innerText = '';
 }
 
-// Handle submitting the current question
-function handleQuestionSubmit() {
-  const selectedOption = document.querySelector(".option.selected");
+// Handle option selection
+function handleOptionSelection(selectedIndex) {
+  const currentLevelData = levels[currentLevel];
+  const selectedOption = options[selectedIndex];
 
-  if (selectedOption) {
-    const selectedOptionIndex = parseInt(selectedOption.getAttribute("data-index"));
-    const currentQuestion = questions[currentQuestionIndex];
+  // Add a border to the selected option
+  selectedOption.classList.add('selected');
 
-    if (currentQuestion.correctOption === currentQuestion.options[selectedOptionIndex]) {
-      feedbackElement.innerText = "Correct!";
-      feedbackElement.style.color = "green";
-    } else {
-      feedbackElement.innerText = "Incorrect!";
-      feedbackElement.style.color = "red";
-    }
+  // Display the selected image
+  selectedImage.src = currentLevelData.options[selectedIndex].image;
 
-    selectedOption.classList.remove("selected");
-    selectedOption.removeAttribute("draggable");
-    submitButton.disabled = true;
+  if (selectedIndex === currentLevelData.correctOptionIndex) {
+    // Correct option selected
+    feedbackElement.innerText = 'Correct!';
+    document.body.classList.add('rainbow-background');
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => {
-        currentQuestionIndex++;
-        loadQuestion();
-        submitButton.disabled = false;
-      }, 1500);
-    } else {
-      setTimeout(() => {
-        feedbackElement.innerText = "Game Over!";
-        feedbackElement.style.color = "black";
-        submitButton.style.display = "none";
-      }, 1500);
-    }
+    // Move to the next level after a brief delay
+    setTimeout(() => {
+      document.body.classList.remove('rainbow-background');
+      currentLevel++;
+
+      if (currentLevel < levels.length) {
+        // Proceed to the next level
+        setUpLevel(currentLevel);
+      } else {
+        // Reached the end of the game
+        feedbackElement.innerText = 'Game Over!';
+        options.forEach(option => {
+          option.removeEventListener('click', handleOptionSelection);
+          option.classList.remove('selected');
+          option.style.cursor = 'default';
+        });
+      }
+    }, 1000);
   } else {
-    feedbackElement.innerText = "Please select an option.";
-    feedbackElement.style.color = "red";
+    // Incorrect option selected
+    feedbackElement.innerText = 'Try again!';
   }
 }
 
-// Add event listeners for option selection
-optionsElement.addEventListener("click", event => {
-  const selectedOption = event.target;
-  if (selectedOption.classList.contains("option")) {
-    const selectedOptionIndex = parseInt(selectedOption.getAttribute("data-index"));
-    const options = optionsElement.querySelectorAll(".option");
-    options.forEach(option => option.classList.remove("selected"));
-    selectedOption.classList.add("selected");
-  }
-});
-
-// Initialize the game
-initializeGame();
+// Start the game by setting up the first level
+setUpLevel(currentLevel);
