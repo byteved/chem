@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  height: 100%;
 }
 
 .lab-background {
@@ -71,12 +72,36 @@ h1 {
   transition: background-color 0.3s ease;
 }
 
-.option:hover {
-  background-color: #3700b3;
-}
-
 .option.correct {
   background-color: #00c853;
+  animation: rainbow-flash 1s infinite;
+}
+
+@keyframes rainbow-flash {
+  0% {
+    background-color: #ff0000;
+  }
+  14% {
+    background-color: #ff8000;
+  }
+  28% {
+    background-color: #ffff00;
+  }
+  42% {
+    background-color: #80ff00;
+  }
+  57% {
+    background-color: #00ff80;
+  }
+  71% {
+    background-color: #0080ff;
+  }
+  85% {
+    background-color: #8000ff;
+  }
+  100% {
+    background-color: #ff0080;
+  }
 }
 
 .feedback {
