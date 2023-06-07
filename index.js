@@ -1,117 +1,95 @@
-// Array of levels/questions
-// Array of question sets for each level
-const questionSets = [
+const options = document.querySelectorAll('.option');
+const selectedImage = document.getElementById('selected-image');
+const feedbackElement = document.getElementById('feedback');
+
+const levels = [
   {
-    level: 1,
-    questions: [
-      {
-        question: "Question 1 - Level 1",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        answer: 0
-      },
-      {
-        question: "Question 2 - Level 1",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        answer: 1
-      },
-      // Add more questions for level 1
-    ]
+    question: 'Question 1',
+    options: [
+      { text: 'Option 1', image: 'option1.jpg' },
+      { text: 'Option 2', image: 'option2.jpg' },
+      { text: 'Option 3', image: 'option3.jpg' },
+      { text: 'Option 4', image: 'option4.jpg' }
+    ],
+    correctOptionIndex: 2 // Index of the correct option (starting from 0)
   },
-  {
-    level: 2,
-    questions: [
-      {
-        question: "Question 1 - Level 2",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        answer: 2
-      },
-      {
-        question: "Question 2 - Level 2",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        answer: 3
-      },
-      // Add more questions for level 2
-    ]
-  },
-  // Add more levels
+  // Add more levels here
 ];
 
-// Track the current level and question index
 let currentLevel = 0;
-let currentQuestionIndex = 0;
+let rainbowTimeout;
 
-// Function to load the current question
-function loadQuestion() {
-  const currentQuestion = questionSets[currentLevel].questions[currentQuestionIndex];
-  const questionElement = document.querySelector(".question");
-  const optionsContainer = document.querySelector(".options");
+// Set up the current level
+function setUpLevel(level) {
+  const currentLevelData = levels[level];
 
-  // Update the question text
-  questionElement.textContent = currentQuestion.question;
-
-  // Clear previous options
-  optionsContainer.innerHTML = "";
-
-  // Create the new options
-  currentQuestion.options.forEach((option, index) => {
-    const button = document.createElement("button");
-    button.classList.add("option");
-    button.textContent = option;
-    optionsContainer.appendChild(button);
-
-    // Add click event listener to each option
-    button.addEventListener("click", () => handleOptionClick(index));
+  // Clear previous selection
+  options.forEach(option => {
+    option.classList.remove('selected');
   });
+
+  // Update the question
+  document.getElementById('question').innerText = currentLevelData.question;
+
+  // Update the options and add click event listeners
+  options.forEach((option, index) => {
+    option.innerText = currentLevelData.options[index].text;
+
+    option.addEventListener('click', () => {
+      handleOptionSelection(index);
+    });
+  });
+
+  // Clear the selected image
+  selectedImage.src = '';
+
+  // Clear the feedback
+  feedbackElement.innerText = '';
 }
 
-// Function to handle option click
-function handleOptionClick(selectedOption) {
-  const currentQuestion = questionSets[currentLevel].questions[currentQuestionIndex];
-  const options = document.querySelectorAll(".option");
+// Handle option selection
+function handleOptionSelection(selectedIndex) {
+  const currentLevelData = levels[currentLevel];
+  const selectedOption = options[selectedIndex];
 
-  // Disable clicking on options
-  options.forEach(option => option.removeEventListener("click", handleOptionClick));
+  // Add a border to the selected option
+  selectedOption.classList.add('selected');
 
-  // Show feedback for selected option
-  if (selectedOption === currentQuestion.answer) {
-    options[selectedOption].classList.add("correct");
-  }
+  // Display the selected image
+  selectedImage.src = currentLevelData.options[selectedIndex].image;
 
-  // Show the next button
-  const selectButton = document.querySelector(".select-button");
-  selectButton.classList.add("hidden");
-  const nextButton = document.querySelector(".next-button");
-  nextButton.classList.remove("hidden");
-}
+  if (selectedIndex === currentLevelData.correctOptionIndex) {
+    // Correct option selected
+    feedbackElement.innerText = 'Correct!';
+    document.body.classList.add('rainbow-background');
 
-// Function to load the next question or level
-function loadNext() {
-  const nextButton = document.querySelector(".next-button");
+    clearTimeout(rainbowTimeout);
+    rainbowTimeout = setTimeout(() => {
+      document.body.classList.remove('rainbow-background');
+    }, 1000);
 
-  // If there are more questions in the current level
-  if (currentQuestionIndex < questionSets[currentLevel].questions.length - 1) {
-    currentQuestionIndex++;
-    loadQuestion();
-    nextButton.classList.add("hidden");
-  } else {
-    // If there are more levels
-    if (currentLevel < questionSets.length - 1) {
+    // Move to the next level after a brief delay
+    setTimeout(() => {
       currentLevel++;
-      currentQuestionIndex = 0;
-      loadQuestion();
-      nextButton.classList.add("hidden");
-    } else {
-      // If all levels and questions are completed
-      // You can add the code here for what to do when the quiz is finished
-    }
+
+      if (currentLevel < levels.length) {
+        // Proceed to the next level
+        setUpLevel(currentLevel);
+      } else {
+        // Reached the end of the game
+        feedbackElement.innerText = 'Game Over!';
+        options.forEach(option => {
+          option.removeEventListener('click', handleOptionSelection);
+          option.classList.remove('selected');
+          option.style.cursor = 'default';
+        });
+      }
+    }, 1000);
+  } else {
+    // Incorrect option selected
+    feedbackElement.innerText = 'Try again!';
   }
 }
 
-// Event listener for next button click
-const nextButton = document.querySelector(".next-button");
-nextButton.addEventListener("click", loadNext);
-
-// Start the quiz by loading the initial question
-loadQuestion();
-
-
+// Start the game by setting up the first level
+setUpLevel(currentLevel);
