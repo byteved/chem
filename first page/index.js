@@ -114,5 +114,26 @@ selectButton.addEventListener('click', () => {
   }
 });
 
+function checkAnswer(selectedOptionIndex) {
+  var question = questions[currentQuestionIndex];
+  var isCorrect = selectedOptionIndex === question.answer;
+
+  if (isCorrect) {
+    playVideo();
+  } else {
+    // Continue to the next question or page
+    redirectToNextPage();
+  }
+}
+
+function playVideo() {
+  var video = document.querySelector(".video");
+  video.play();
+}
+
+function redirectToNextPage() {
+  window.location.href = "2.html";
+}
+
 // Start the game by setting up the first level
 setUpLevel(currentLevel);
