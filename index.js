@@ -22,8 +22,15 @@ let currentLevel = 0;
 // Initialize level
 function initializeLevel(levelIndex) {
   const level = levels[levelIndex];
+  const question = document.getElementById('question');
+  const options = document.getElementById('options');
+  const feedback = document.getElementById('feedback');
+
   question.innerHTML = level.question;
   options.innerHTML = '';
+  feedback.innerHTML = '';
+  selectButton.classList.remove('hidden');
+  nextButton.classList.add('hidden');
 
   // Create option buttons
   level.options.forEach((option, index) => {
@@ -43,13 +50,18 @@ function handleOptionClick(index) {
   const selectedOption = levels[currentLevel].options[index];
 
   // Add green outline for correct option
-  options.childNodes.forEach((option, i) => {
+  const options = document.getElementsByClassName('option');
+  Array.from(options).forEach((option, i) => {
     if (i === index && selectedOption.isCorrect) {
       option.classList.add('correct');
     } else {
       option.classList.remove('correct');
     }
   });
+
+  // Show feedback
+  const feedback = document.getElementById('feedback');
+  feedback.innerHTML = selectedOption.isCorrect ? 'Correct!' : 'Incorrect!';
 
   // Hide select button, show next button
   selectButton.classList.add('hidden');
@@ -61,10 +73,12 @@ nextButton.addEventListener('click', () => {
   slides[currentLevel].classList.add('hidden');
   currentLevel++;
   if (currentLevel < levels.length) {
-    initializeLevel(currentLevel);
-    slides[currentLevel].classList.add('fade-in');
+    slides[currentLevel].classList.remove('hidden');
   } else {
     // All levels completed
+    const question = document.getElementById('question');
+    const options = document.getElementById('options');
+    const feedback = document.getElementById('feedback');
     question.innerHTML = 'All levels completed!';
     options.innerHTML = '';
     feedback.innerHTML = '';
@@ -75,4 +89,3 @@ nextButton.addEventListener('click', () => {
 
 // Initialize first level
 initializeLevel(currentLevel);
-slides[currentLevel].classList.add('fade-in');
