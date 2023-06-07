@@ -6,6 +6,7 @@ const dropzone = document.querySelector('.dropzone');
 options.forEach(option => {
   option.addEventListener('dragstart', dragStart);
   option.addEventListener('dragend', dragEnd);
+  option.addEventListener('mousedown', optionClick);
 });
 
 // Add event listeners to the drop zone for drop events
@@ -21,6 +22,18 @@ function dragStart(event) {
 
 function dragEnd() {
   // Do any necessary cleanup or visual changes after dragging ends
+}
+
+// Option click function
+function optionClick(event) {
+  const option = event.target;
+
+  // Animate the option moving towards the drop zone
+  option.classList.add('moving');
+  setTimeout(() => {
+    option.style.display = 'none';
+    option.classList.remove('moving');
+  }, 500);
 }
 
 // Drop zone functions
