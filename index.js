@@ -1,95 +1,79 @@
-const options = document.querySelectorAll('.option');
-const selectedImage = document.getElementById('selected-image');
-const feedbackElement = document.getElementById('feedback');
+const selectButton = document.getElementById('select-button');
+const nextButton = document.getElementById('next-button');
 
+// Array of levels/questions
 const levels = [
   {
     question: 'Question 1',
     options: [
-      { text: 'Option 1', image: 'option1.jpg' },
-      { text: 'Option 2', image: 'option2.jpg' },
-      { text: 'Option 3', image: 'option3.jpg' },
-      { text: 'Option 4', image: 'option4.jpg' }
+      { text: 'Option 1', isCorrect: true },
+      { text: 'Option 2', isCorrect: false },
+      { text: 'Option 3', isCorrect: false },
+      { text: 'Option 4', isCorrect: false },
     ],
-    correctOptionIndex: 2 // Index of the correct option (starting from 0)
   },
-  // Add more levels here
+  // Add more levels here...
 ];
 
 let currentLevel = 0;
-let rainbowTimeout;
 
-// Set up the current level
-function setUpLevel(level) {
-  const currentLevelData = levels[level];
+// Initialize level
+function initializeLevel(levelIndex) {
+  const level = levels[levelIndex];
+  question.innerHTML = level.question;
+  options.innerHTML = '';
 
-  // Clear previous selection
-  options.forEach(option => {
-    option.classList.remove('selected');
-  });
-
-  // Update the question
-  document.getElementById('question').innerText = currentLevelData.question;
-
-  // Update the options and add click event listeners
-  options.forEach((option, index) => {
-    option.innerText = currentLevelData.options[index].text;
-
-    option.addEventListener('click', () => {
-      handleOptionSelection(index);
+  // Create option buttons
+  level.options.forEach((option, index) => {
+    const optionButton = document.createElement('button');
+    optionButton.classList.add('option');
+    optionButton.innerText = option.text;
+    optionButton.dataset.index = index;
+    optionButton.addEventListener('click', () => {
+      handleOptionClick(index);
     });
+    options.appendChild(optionButton);
+  });
+}
+
+// Handle option button click
+function handleOptionClick(index) {
+  const selectedOption = levels[currentLevel].options[index];
+
+  // Add green outline for correct option
+  options.childNodes.forEach((option, i) => {
+    if (i === index && selectedOption.isCorrect) {
+      option.classList.add('correct');
+    } else {
+      option.classList.remove('correct');
+    }
   });
 
-  // Clear the selected image
-  selectedImage.src = '';
-
-  // Clear the feedback
-  feedbackElement.innerText = '';
+  // Hide select button, show next button
+  selectButton.classList.add('hidden');
+  nextButton.classList.remove('hidden');
 }
 
-// Handle option selection
-function handleOptionSelection(selectedIndex) {
-  const currentLevelData = levels[currentLevel];
-  const selectedOption = options[selectedIndex];
-
-  // Add a border to the selected option
-  selectedOption.classList.add('selected');
-
-  // Display the selected image
-  selectedImage.src = currentLevelData.options[selectedIndex].image;
-
-  if (selectedIndex === currentLevelData.correctOptionIndex) {
-    // Correct option selected
-    feedbackElement.innerText = 'Correct!';
-    document.body.classList.add('rainbow-background');
-
-    clearTimeout(rainbowTimeout);
-    rainbowTimeout = setTimeout(() => {
-      document.body.classList.remove('rainbow-background');
-    }, 1000);
-
-    // Move to the next level after a brief delay
-    setTimeout(() => {
-      currentLevel++;
-
-      if (currentLevel < levels.length) {
-        // Proceed to the next level
-        setUpLevel(currentLevel);
-      } else {
-        // Reached the end of the game
-        feedbackElement.innerText = 'Game Over!';
-        options.forEach(option => {
-          option.removeEventListener('click', handleOptionSelection);
-          option.classList.remove('selected');
-          option.style.cursor = 'default';
-        });
-      }
-    }, 1000);
+// Handle next button click
+nextButton.addEventListener('click', () => {
+  currentLevel++;
+  if (currentLevel < levels.length) {
+    initializeLevel(currentLevel);
+    // Hide next button, show select button
+    nextButton.classList.add('hidden');
+    selectButton.classList.remove('hidden');
+    options.childNodes.forEach(option => {
+      option.classList.remove('correct');
+    });
   } else {
-    // Incorrect option selected
-    feedbackElement.innerText = 'Try again!';
+    // All levels completed
+    question.innerHTML = 'All levels completed!';
+    options.innerHTML = '';
+    feedback.innerHTML = '';
+    selectButton.classList.add('hidden');
+    nextButton.classList.add('hidden');
   }
-}
+});
 
-// Start the game by setting up the first level
-setUpLevel(currentLevel);
+// Initialize first level
+initializeLevel(currentLevel);

@@ -1,91 +1,6 @@
-body {
-  background-image: url("lab-background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  margin: 0;
-  padding: 0;
-}
+/* Existing styles */
 
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px;
-  background-color: #ffffff;
-  margin: 0;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 60px); /* Subtract the height of the title */
-  text-align: center;
-}
-
-.animation-container {
-  width: 100%;
-  height: 300px;
-  background-color: #f2f2f2;
-  margin-bottom: 20px;
-}
-
-.question-container {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.question {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.options {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.option {
-  padding: 40px;
-  background-color: #f2f2f2;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  width: 300px;
-  height: 200px;
-  transition: border 0.3s ease-in-out;
-}
-
-.option.correct {
-  border: 5px solid #4CAF50;
-}
-
-.image-container {
-  margin-top: 20px;
-}
-
-#selected-image {
-  max-width: 400px;
-  max-height: 400px;
-}
-
-.feedback {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.select-button-container {
+.button-container {
   margin-top: 20px;
 }
 
@@ -98,4 +13,36 @@ h1 {
   background-color: #4CAF50;
   color: #ffffff;
   cursor: pointer;
+}
+
+.next-button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4287f5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+/* New styles */
+
+.rainbow-background {
+  animation: rainbow 1s infinite;
+}
+
+@keyframes rainbow {
+  0% { background-color: red; }
+  14% { background-color: orange; }
+  28% { background-color: yellow; }
+  42% { background-color: green; }
+  57% { background-color: blue; }
+  71% { background-color: indigo; }
+  85% { background-color: violet; }
+  100% { background-color: red; }
 }
