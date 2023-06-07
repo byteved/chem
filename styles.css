@@ -1,9 +1,27 @@
+body {
+  background-image: url("lab-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Subtract the height of the title */
   text-align: center;
 }
 
@@ -15,6 +33,11 @@
 }
 
 .question-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
