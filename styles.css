@@ -46,3 +46,35 @@
   85% { background-color: violet; }
   100% { background-color: red; }
 }
+
+/* Existing styles */
+
+.button-container {
+  margin-top: 20px;
+}
+
+.select-button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.next-button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4287f5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
