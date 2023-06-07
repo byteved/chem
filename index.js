@@ -1,3 +1,5 @@
+const slideContainer = document.getElementById('slide-container');
+const slides = document.getElementsByClassName('slide');
 const selectButton = document.getElementById('select-button');
 const nextButton = document.getElementById('next-button');
 
@@ -56,15 +58,11 @@ function handleOptionClick(index) {
 
 // Handle next button click
 nextButton.addEventListener('click', () => {
+  slides[currentLevel].classList.add('hidden');
   currentLevel++;
   if (currentLevel < levels.length) {
     initializeLevel(currentLevel);
-    // Hide next button, show select button
-    nextButton.classList.add('hidden');
-    selectButton.classList.remove('hidden');
-    options.childNodes.forEach(option => {
-      option.classList.remove('correct');
-    });
+    slides[currentLevel].classList.add('fade-in');
   } else {
     // All levels completed
     question.innerHTML = 'All levels completed!';
@@ -77,3 +75,4 @@ nextButton.addEventListener('click', () => {
 
 // Initialize first level
 initializeLevel(currentLevel);
+slides[currentLevel].classList.add('fade-in');
