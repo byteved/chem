@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chemistry Quiz</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    /* Add your custom styles here */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .options {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .option {
+      flex: 1;
+      background-color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .option:hover {
+      background-color: #f9f9f9;
+    }
+    .video-container {
+      margin-top: 20px;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: none;
+    }
+    .video-container video {
+      width: 100%;
+      max-height: 400px;
+    }
+    .hidden {
+      display: none;
+    }
+    .next-button {
+      display: block;
+      margin-top: 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .next-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Chemistry Quiz</h1>
+    <div class="question-container">
+      <h2 class="question">Question goes here</h2>
+      <div class="options">
+        <button class="option" onclick="checkAnswer(0)">Option 1</button>
+        <button class="option" onclick="checkAnswer(1)">Option 2</button>
+        <button class="option" onclick="checkAnswer(2)">Option 3</button>
+        <button class="option" onclick="checkAnswer(3)">Option 4</button>
+      </div>
+    </div>
+    <div class="video-container">
+      <video src="" controls></video>
+    </div>
+    <button class="next-button hidden" onclick="loadNextLevel()">Next Level</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    var levels = [
+      {
+        question: "Question 1",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 2,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 2",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 1,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 3",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 3,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 4",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 0,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 5",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 1,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 6",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 3,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 7",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 2,
+        videoSrc: "movie.mp4"
+      },
+      {
+        question: "Question 8",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        correctOptionIndex: 0,
+        videoSrc: "movie.mp4"
+      }
+    ];
+
+    var currentLevelIndex = 0;
+
+    function loadLevel(levelIndex) {
+      var level = levels[levelIndex];
+
+      var questionElement = document.querySelector(".question");
+      questionElement.textContent = level.question;
+
+      var optionsContainer = document.querySelector(".options");
+      optionsContainer.innerHTML = "";
+
+      level.options.forEach(function(option, index) {
+        var optionButton = document.createElement("button");
+        optionButton.classList.add("option");
+        optionButton.textContent = option;
+        optionButton.onclick = function() {
+          checkAnswer(index);
+        };
+
+        optionsContainer.appendChild(optionButton);
+      });
+
+      var videoContainer = document.querySelector(".video-container");
+      videoContainer.style.display = "none";
+      videoContainer.querySelector("video").src = "";
+
+      var nextButton = document.querySelector(".next-button");
+      nextButton.style.display = "none";
+      nextButton.onclick = null;
+    }
+
+    function checkAnswer(selectedOptionIndex) {
+      var level = levels[currentLevelIndex];
+
+      if (selectedOptionIndex === level.correctOptionIndex) {
+        showVideo(level.videoSrc);
+      } else {
+        moveToNextLevel();
+      }
+    }
+
+    function showVideo(videoSrc) {
+      var videoContainer = document.querySelector(".video-container");
+      var videoElement = videoContainer.querySelector("video");
+
+      videoElement.src = videoSrc;
+      videoContainer.style.display = "block";
+      videoElement.play();
+
+      videoElement.onended = function() {
+        moveToNextLevel();
+      };
+    }
+
+    function moveToNextLevel() {
+      currentLevelIndex++;
+
+      if (currentLevelIndex >= levels.length) {
+        // All levels completed
+        window.location.href = "gameover.html"; // Redirect to game over page
+      } else {
+        loadLevel(currentLevelIndex);
+      }
+    }
+
+    // Start the game
+    loadLevel(currentLevelIndex);
+  </script>
+</body>
+</html>
