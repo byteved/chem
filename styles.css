@@ -58,9 +58,10 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  flex-grow: 1;
+  padding: 20px;
   margin: 10px;
-  font-size: 18px;
+  font-size: 20px;
   background-color: #6200ee;
   color: #ffffff;
   border: none;
@@ -88,8 +89,14 @@ h1 {
 }
 
 .button-container {
+  width: 100%;
   display: flex;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-color: #ffffff;
 }
 
 .select-button,
