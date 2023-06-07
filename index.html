@@ -1,83 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chemistry Quiz</title>
+  <title>Chemistry Project</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Chemistry Quiz</h1>
-    <div class="question-container">
-      <h2 class="question">Question goes here</h2>
-      <div class="options">
-        <button class="option" onclick="checkAnswer(0)">Option 1</button>
-        <button class="option" onclick="checkAnswer(1)">Option 2</button>
-        <button class="option" onclick="checkAnswer(2)">Option 3</button>
-        <button class="option" onclick="checkAnswer(3)">Option 4</button>
-      </div>
+  <h1>Chemistry Project</h1>
+  <div id="animation-container" class="animation-container"></div>
+  <div id="question-container" class="question-container">
+    <div id="question" class="question"></div>
+    <div id="options" class="options">
+      <button class="option" data-index="0">Option 1</button>
+      <button class="option" data-index="1">Option 2</button>
+      <button class="option" data-index="2">Option 3</button>
+      <button class="option" data-index="3">Option 4</button>
     </div>
-    <div class="image-container">
-      <img class="image" src="" alt="Reaction">
-    </div>
-    <button class="next-button hidden" onclick="loadNext()">Next</button>
   </div>
-
-  <script>
-    // Array of questions
-    const questions = [
-      {
-        question: "Question 1",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        answer: 2,
-        image: "path/to/image.png"
-      },
-      // Add more questions here
-    ];
-
-    var currentQuestionIndex = 0;
-
-    function loadQuestion() {
-      var questionContainer = document.querySelector(".question-container");
-      var question = questions[currentQuestionIndex];
-      questionContainer.querySelector(".question").textContent = question.question;
-      var options = questionContainer.querySelectorAll(".option");
-      for (var i = 0; i < options.length; i++) {
-        options[i].textContent = question.options[i];
-      }
-    }
-
-    function checkAnswer(selectedOptionIndex) {
-      var question = questions[currentQuestionIndex];
-      var isCorrect = selectedOptionIndex === question.answer;
-
-      if (isCorrect) {
-        showNextButton();
-      } else {
-        // Continue to the next question or page
-        loadNext();
-      }
-    }
-
-    function showNextButton() {
-      var nextButton = document.querySelector(".next-button");
-      nextButton.classList.remove("hidden");
-    }
-
-    function loadNext() {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
-        loadQuestion();
-        var nextButton = document.querySelector(".next-button");
-        nextButton.classList.add("hidden");
-      } else {
-        // No more questions, navigate to next page
-        window.location.href = "next_page.html";
-      }
-    }
-
-    // Load the first question
-    loadQuestion();
-  </script>
+  <div id="image-container" class="image-container">
+    <img id="selected-image" src="" alt="Selected Option Image">
+  </div>
+  <div id="feedback" class="feedback"></div>
+  <div id="select-button-container" class="select-button-container">
+    <button id="select-button" class="select-button">Select</button>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>
