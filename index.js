@@ -17,6 +17,7 @@ const levels = [
 ];
 
 let currentLevel = 0;
+let rainbowTimeout;
 
 // Set up the current level
 function setUpLevel(level) {
@@ -62,9 +63,13 @@ function handleOptionSelection(selectedIndex) {
     feedbackElement.innerText = 'Correct!';
     document.body.classList.add('rainbow-background');
 
+    clearTimeout(rainbowTimeout);
+    rainbowTimeout = setTimeout(() => {
+      document.body.classList.remove('rainbow-background');
+    }, 1000);
+
     // Move to the next level after a brief delay
     setTimeout(() => {
-      document.body.classList.remove('rainbow-background');
       currentLevel++;
 
       if (currentLevel < levels.length) {
