@@ -113,49 +113,49 @@
         question: "Question 1",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 2,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 2",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 1,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 3",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 3,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 4",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 0,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 5",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 1,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 6",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 3,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 7",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 2,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       },
       {
         question: "Question 8",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         correctOptionIndex: 0,
-        videoSrc: "movie.mp4"
+        videoSrc: "example.mp4"
       }
     ];
 
@@ -197,7 +197,7 @@
         showVideo(level.videoSrc);
         document.getElementById("demo").innerHTML = "Correct!";
       } else {
-        moveToNextLevel();
+       showLosingVideo("movie.mp4");
         document.getElementById("demo").innerHTML = "Wrong....";
       }
     }
@@ -207,13 +207,28 @@
       var videoElement = videoContainer.querySelector("video");
 
       videoElement.src = videoSrc;
-      videoContainer.style.display = "block";
+      videoContainer.classList.remove("hidden");
       videoElement.play();
 
       videoElement.onended = function() {
         moveToNextLevel();
       };
     }
+
+    function showLosingVideo(videoSrc) {
+      var videoContainer = document.querySelector(".losing-video-container");
+      var videoElement = videoContainer.querySelector("video");
+
+      videoElement.src = videoSrc;
+      videoContainer.classList.remove("hidden");
+      videoElement.play();
+
+      videoElement.onended = function() {
+        moveToNextLevel();
+      };
+    }
+
+
 
     function moveToNextLevel() {
       currentLevelIndex++;
