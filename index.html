@@ -3,231 +3,270 @@
 <head>
   <title>Chemistry Quiz</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <!DOCTYPE html>
+<body>
+<html>
+<head>
   <style>
-    /* Add your custom styles here */
-    body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.options {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 20px;
-}
-
-.option {
-  font-size: 24px; /* Adjust the font size as needed */
-  padding: 10px 20px; /* Adjust the padding as needed */
-  margin: 0 10px; /* Adjust the margin as needed */
-}
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
+    table {
+      border-collapse: collapse;
     }
-    h1 {
-      text-align: center;
+    th, td {
+      padding: 8px;
+      border: 1px solid black;
     }
-    .options {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .option {
-      flex: 1;
-      background-color: #ADD8E6;
-      border: 2px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .option:hover {
-      background-color: #f9f9f9;
-    }
-    .video-container {
-      margin-top: 20px;
-      background-color: #f0f0f0;
-      padding: 20px;
-      display: none;
-    }
-    .video-container video {
-      width: 100%;
-      max-height: 400px;
-    }
-    .hidden {
-      display: none;
-    }
-    .next-button {
-      display: block;
-      margin-top: 20px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .next-button:hover {
-      background-color: #45a049;
-    }
-    
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Chemistry Quiz</h1>
-    <div class="question-container">
-      <h2 class="question">Question goes here</h2>
-      <div class="options">
-        <button class="option" onclick="checkAnswer(0)">Option 1</button>
-        <button class="option" onclick="checkAnswer(1)">Option 2</button>
-        <button class="option" onclick="checkAnswer(2)">Option 3</button>
-        <button class="option" onclick="checkAnswer(3)">Option 4</button>
-      </div>
-      <p id="demo"></p>
-    </div>
-    <div class="video-container">
-      <video src="" controls></video>
-    </div>
-    <button class="next-button hidden" onclick="loadNextLevel()">Next Level</button>
-  </div>
+  <table>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+    <tr>
+      <!-- Elements 1-10 -->
+      <td><input type="checkbox" value="1">H<br>Hydrogen</td>
+      <td><input type="checkbox" value="2">He<br>Helium</td>
+      <td><input type="checkbox" value="3">Li<br>Lithium</td>
+      <td><input type="checkbox" value="4">Be<br>Beryllium</td>
+      <td><input type="checkbox" value="5">B<br>Boron</td>
+      <td><input type="checkbox" value="6">C<br>Carbon</td>
+      <td><input type="checkbox" value="7">N<br>Nitrogen</td>
+      <td><input type="checkbox" value="8">O<br>Oxygen</td>
+      <td><input type="checkbox" value="9">F<br>Fluorine</td>
+      <td><input type="checkbox" value="10">Ne<br>Neon</td>
+    </tr>
+    <tr>
+      <!-- Elements 11-20 -->
+      <td><input type="checkbox" value="11">Na<br>Sodium</td>
+      <td><input type="checkbox" value="12">Mg<br>Magnesium</td>
+      <td><input type="checkbox" value="13">Al<br>Aluminum</td>
+      <td><input type="checkbox" value="14">Si<br>Silicon</td>
+      <td><input type="checkbox" value="15">P<br>Phosphorus</td>
+      <td><input type="checkbox" value="16">S<br>Sulfur</td>
+      <td><input type="checkbox" value="17">Cl<br>Chlorine</td>
+      <td><input type="checkbox" value="18">Ar<br>Argon</td>
+      <td><input type="checkbox" value="19">K<br>Potassium</td>
+      <td><input type="checkbox" value="20">Ca<br>Calcium</td>
+    </tr>
+  </table>
 
-  <script src="script.js"></script>
+  <button onclick="combineElements()">Combine</button>
+  <button onclick="clearSelection()">Clear</button>
+
+  <div id="result"></div>
+
   <script>
-    var levels = [
-      {
-        question: "Question 1",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 2,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 2",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 1,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 3",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 3,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 4",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 0,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 5",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 1,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 6",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 3,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 7",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 2,
-        videoSrc: "movie.mp4"
-      },
-      {
-        question: "Question 8",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        correctOptionIndex: 0,
-        videoSrc: "movie.mp4"
+    const combinations = {
+      // Hydrogen combinations
+      '1,1': { symbol: 'H-H', name: 'Hydrogen' },
+      '1,2': { symbol: 'H-He', name: 'Helium' },
+      '1,3': { symbol: 'H-Li', name: 'Lithium Hydride' },
+      '1,4': { symbol: 'H-Be', name: 'Beryllium Hydride' },
+      '1,5': { symbol: 'H-B', name: 'Boron Hydride' },
+      '1,6': { symbol: 'H-C', name: 'Methane' },
+      '1,7': { symbol: 'H-N', name: 'Ammonia' },
+      '1,8': { symbol: 'H2o', name: 'Water' },
+      '1,9': { symbol: 'H-F', name: 'Hydrogen Fluoride' },
+      '1,10': { symbol: 'H-Ne', name: 'Helium Hydride' },
+
+      // Helium combinations
+      '2,2': { symbol: 'He-He', name: 'Helium' },
+      '2,3': { symbol: 'He-Li', name: 'Helium Lithium' },
+      '2,4': { symbol: 'He-Be', name: 'Helium Beryllium' },
+      '2,5': { symbol: 'He-B', name: 'Helium Boron' },
+      '2,6': { symbol: 'He-C', name: 'Helium Carbon' },
+      '2,7': { symbol: 'He-N', name: 'Helium Nitrogen' },
+      '2,8': { symbol: 'He-O', name: 'Helium Oxygen' },
+      '2,9': { symbol: 'He-F', name: 'Helium Fluoride' },
+      '2,10': { symbol: 'He-Ne', name: 'Neon' },
+
+      // Lithium combinations
+      '3,3': { symbol: 'Li-Li', name: 'Lithium' },
+      '3,4': { symbol: 'Li-Be', name: 'Lithium Beryllium' },
+      '3,5': { symbol: 'Li-B', name: 'Lithium Boron' },
+      '3,6': { symbol: 'Li-C', name: 'Lithium Carbon' },
+      '3,7': { symbol: 'Li-N', name: 'Lithium Nitrogen' },
+      '3,8': { symbol: 'Li-O', name: 'Lithium Oxygen' },
+      '3,9': { symbol: 'Li-F', name: 'Lithium Fluoride' },
+      '3,10': { symbol: 'Li-Ne', name: 'Lithium Neon' },
+
+      // Beryllium combinations
+      '4,4': { symbol: 'Be-Be', name: 'Beryllium' },
+      '4,5': { symbol: 'Be-B', name: 'Beryllium Boron' },
+      '4,6': { symbol: 'Be-C', name: 'Beryllium Carbon' },
+      '4,7': { symbol: 'Be-N', name: 'Beryllium Nitrogen' },
+      '4,8': { symbol: 'Be-O', name: 'Beryllium Oxygen' },
+      '4,9': { symbol: 'Be-F', name: 'Beryllium Fluoride' },
+      '4,10': { symbol: 'Be-Ne', name: 'Beryllium Neon' },
+
+      // Boron combinations
+      '5,5': { symbol: 'B-B', name: 'Boron' },
+      '5,6': { symbol: 'B-C', name: 'Boron Carbon' },
+      '5,7': { symbol: 'B-N', name: 'Boron Nitrogen' },
+      '5,8': { symbol: 'B-O', name: 'Boron Oxygen' },
+      '5,9': { symbol: 'B-F', name: 'Boron Fluoride' },
+      '5,10': { symbol: 'B-Ne', name: 'Boron Neon' },
+
+      // Carbon combinations
+      '6,6': { symbol: 'C-C', name: 'Carbon' },
+      '6,7': { symbol: 'C-N', name: 'Carbon Nitrogen' },
+      '6,8': { symbol: 'C-O', name: 'Carbon Oxygen' },
+      '6,9': { symbol: 'C-F', name: 'Carbon Fluoride' },
+      '6,10': { symbol: 'C-Ne', name: 'Carbon Neon' },
+
+      // Nitrogen combinations
+      '7,7': { symbol: 'N-N', name: 'Nitrogen' },
+      '7,8': { symbol: 'N-O', name: 'Nitrogen Oxygen' },
+      '7,9': { symbol: 'N-F', name: 'Nitrogen Fluoride' },
+      '7,10': { symbol: 'N-Ne', name: 'Nitrogen Neon' },
+
+      // Oxygen combinations
+      '8,8': { symbol: 'O-O', name: 'Oxygen' },
+      '8,9': { symbol: 'O-F', name: 'Oxygen Fluoride' },
+      '8,10': { symbol: 'O-Ne', name: 'Oxygen Neon' },
+
+      // Fluorine combinations
+      '9,9': { symbol: 'F-F', name: 'Fluorine' },
+      '9,10': { symbol: 'F-Ne', name: 'Fluorine Neon' },
+
+      // Neon combinations
+      '10,10': { symbol: 'Ne-Ne', name: 'Neon' },
+
+      // Sodium combinations
+      '11,11': { symbol: 'Na-Na', name: 'Sodium' },
+      '11,12': { symbol: 'Na-Mg', name: 'Sodium Magnesium' },
+      '11,13': { symbol: 'Na-Al', name: 'Sodium Aluminum' },
+      '11,14': { symbol: 'Na-Si', name: 'Sodium Silicon' },
+      '11,15': { symbol: 'Na-P', name: 'Sodium Phosphorus' },
+      '11,16': { symbol: 'Na-S', name: 'Sodium Sulfur' },
+      '11,17': { symbol: 'Na-Cl', name: 'Sodium Chloride' },
+      '11,18': { symbol: 'Na-Ar', name: 'Sodium Argon' },
+      '11,19': { symbol: 'Na-K', name: 'Sodium Potassium' },
+      '11,20': { symbol: 'Na-Ca', name: 'Sodium Calcium' },
+
+      // Magnesium combinations
+      '12,12': { symbol: 'Mg-Mg', name: 'Magnesium' },
+      '12,13': { symbol: 'Mg-Al', name: 'Magnesium Aluminum' },
+      '12,14': { symbol: 'Mg-Si', name: 'Magnesium Silicon' },
+      '12,15': { symbol: 'Mg-P', name: 'Magnesium Phosphorus' },
+      '12,16': { symbol: 'Mg-S', name: 'Magnesium Sulfur' },
+      '12,17': { symbol: 'Mg-Cl', name: 'Magnesium Chloride' },
+      '12,18': { symbol: 'Mg-Ar', name: 'Magnesium Argon' },
+      '12,19': { symbol: 'Mg-K', name: 'Magnesium Potassium' },
+      '12,20': { symbol: 'Mg-Ca', name: 'Magnesium Calcium' },
+
+      // Aluminum combinations
+      '13,13': { symbol: 'Al-Al', name: 'Aluminum' },
+      '13,14': { symbol: 'Al-Si', name: 'Aluminum Silicon' },
+      '13,15': { symbol: 'Al-P', name: 'Aluminum Phosphorus' },
+      '13,16': { symbol: 'Al-S', name: 'Aluminum Sulfur' },
+      '13,17': { symbol: 'Al-Cl', name: 'Aluminum Chloride' },
+      '13,18': { symbol: 'Al-Ar', name: 'Aluminum Argon' },
+      '13,19': { symbol: 'Al-K', name: 'Aluminum Potassium' },
+      '13,20': { symbol: 'Al-Ca', name: 'Aluminum Calcium' },
+
+      // Silicon combinations
+      '14,14': { symbol: 'Si-Si', name: 'Silicon' },
+      '14,15': { symbol: 'Si-P', name: 'Silicon Phosphorus' },
+      '14,16': { symbol: 'Si-S', name: 'Silicon Sulfur' },
+      '14,17': { symbol: 'Si-Cl', name: 'Silicon Chloride' },
+      '14,18': { symbol: 'Si-Ar', name: 'Silicon Argon' },
+      '14,19': { symbol: 'Si-K', name: 'Silicon Potassium' },
+      '14,20': { symbol: 'Si-Ca', name: 'Silicon Calcium' },
+
+      // Phosphorus combinations
+      '15,15': { symbol: 'P-P', name: 'Phosphorus' },
+      '15,16': { symbol: 'P-S', name: 'Phosphorus Sulfur' },
+      '15,17': { symbol: 'P-Cl', name: 'Phosphorus Chloride' },
+      '15,18': { symbol: 'P-Ar', name: 'Phosphorus Argon' },
+      '15,19': { symbol: 'P-K', name: 'Phosphorus Potassium' },
+      '15,20': { symbol: 'P-Ca', name: 'Phosphorus Calcium' },
+
+      // Sulfur combinations
+      '16,16': { symbol: 'S-S', name: 'Sulfur' },
+      '16,17': { symbol: 'S-Cl', name: 'Sulfur Chloride' },
+      '16,18': { symbol: 'S-Ar', name: 'Sulfur Argon' },
+      '16,19': { symbol: 'S-K', name: 'Sulfur Potassium' },
+      '16,20': { symbol: 'S-Ca', name: 'Sulfur Calcium' },
+
+      // Chlorine combinations
+      '17,17': { symbol: 'Cl-Cl', name: 'Chlorine' },
+      '17,18': { symbol: 'Cl-Ar', name: 'Chlorine Argon' },
+      '17,19': { symbol: 'Cl-K', name: 'Chlorine Potassium' },
+      '17,20': { symbol: 'Cl-Ca', name: 'Chlorine Calcium' },
+
+      // Argon combinations
+      '18,18': { symbol: 'Ar-Ar', name: 'Argon' },
+      '18,19': { symbol: 'Ar-K', name: 'Argon Potassium' },
+      '18,20': { symbol: 'Ar-Ca', name: 'Argon Calcium' },
+
+      // Potassium combinations
+      '19,19': { symbol: 'K-K', name: 'Potassium' },
+      '19,20': { symbol: 'K-Ca', name: 'Potassium Calcium' },
+
+      // Calcium combinations
+      '20,20': { symbol: 'Ca-Ca', name: 'Calcium' }
+    };
+
+    function combineElements() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedElements = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '';
+
+      if (selectedElements.length < 2) {
+        resultDiv.textContent = 'Please select at least two elements.';
+      } else {
+        const combinationsList = [];
+
+        for (let i = 0; i < selectedElements.length - 1; i++) {
+          for (let j = i + 1; j < selectedElements.length; j++) {
+            const element1 = selectedElements[i];
+            const element2 = selectedElements[j];
+            const combinationKey = `${element1},${element2}`;
+
+            if (combinations.hasOwnProperty(combinationKey)) {
+              const combination = combinations[combinationKey];
+              combinationsList.push(combination);
+            }
+          }
+        }
+
+        if (combinationsList.length > 0) {
+          const table = document.createElement('table');
+          const headerRow = table.insertRow();
+          const symbolHeader = headerRow.insertCell();
+          symbolHeader.textContent = 'Symbol';
+          const nameHeader = headerRow.insertCell();
+          nameHeader.textContent = 'Name';
+
+          combinationsList.forEach(combination => {
+            const row = table.insertRow();
+            const symbolCell = row.insertCell();
+            symbolCell.textContent = combination.symbol;
+            const nameCell = row.insertCell();
+            nameCell.textContent = combination.name;
+          });
+
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent = 'No valid combinations found.';
+        }
       }
-    ];
+    }
 
-    var currentLevelIndex = 0;
-
-    function loadLevel(levelIndex) {
-      var level = levels[levelIndex];
-
-      var questionElement = document.querySelector(".question");
-      questionElement.textContent = level.question;
-
-      var optionsContainer = document.querySelector(".options");
-      optionsContainer.innerHTML = "";
-
-      level.options.forEach(function(option, index) {
-        var optionButton = document.createElement("button");
-        optionButton.classList.add("option");
-        optionButton.textContent = option;
-        optionButton.onclick = function() {
-          checkAnswer(index);
-        };
-
-        optionsContainer.appendChild(optionButton);
+    function clearSelection() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
       });
 
-      var videoContainer = document.querySelector(".video-container");
-      videoContainer.style.display = "none";
-      videoContainer.querySelector("video").src = "";
-
-      var nextButton = document.querySelector(".next-button");
-      nextButton.style.display = "none";
-      nextButton.onclick = null;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '';
     }
-
-    function checkAnswer(selectedOptionIndex) {
-      var level = levels[currentLevelIndex];
-
-      if (selectedOptionIndex === level.correctOptionIndex) {
-        showVideo(level.videoSrc);
-        document.getElementById("demo").innerHTML = "Correct!";
-      } else {
-        moveToNextLevel();
-        document.getElementById("demo").innerHTML = "Wrong....";
-      }
-    }
-
-    function showVideo(videoSrc) {
-      var videoContainer = document.querySelector(".video-container");
-      var videoElement = videoContainer.querySelector("video");
-
-      videoElement.src = videoSrc;
-      videoContainer.style.display = "block";
-      videoElement.play();
-
-      videoElement.onended = function() {
-        moveToNextLevel();
-      };
-    }
-
-    function moveToNextLevel() {
-      currentLevelIndex++;
-
-      if (currentLevelIndex >= levels.length) {
-        // All levels completed
-        window.location.href = "gameover.html"; // Redirect to game over page
-      } else {
-        loadLevel(currentLevelIndex);
-      }
-    }
-
-    // Start the game
-    loadLevel(currentLevelIndex);
   </script>
 </body>
 </html>
+<body>
