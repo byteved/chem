@@ -5,8 +5,6 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
         <script src="scripts.js"></script>
   <!DOCTYPE html>
-<body>
-    <h1>what 2 elements create water?</h1>
 <html>
 <head>
   <style>
@@ -19,7 +17,8 @@
     }
   </style>
 </head>
-<body>
+<body onload="renderquestion();">
+  <h1 id="Question"></h1>
   <table>
     <tr>
       <th>Symbol</th>
@@ -53,7 +52,7 @@
     </tr>
   </table>
 
-  <button onclick="combineElements()">Combine</button>
+  <button onclick="check()">Check</button>
   <button onclick="clearSelection()">Clear</button>
 
   <div id="result"></div>

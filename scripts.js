@@ -299,6 +299,25 @@
       }
     }
 
+    const questions=[
+        {
+          question:"What two elements create Water?",
+          answer:'1,8',
+        },
+        {
+          question:"What two elements create Borax?",
+          answer:'5,11',
+        },
+
+      
+    ]
+    var currentquestionindex = 0
+
+
+
+
+    
+
     function clearSelection() {
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       checkboxes.forEach(checkbox => {
@@ -308,3 +327,30 @@
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = '';
     }
+    function check() {
+     
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedElements = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+      let combinationKey = ''
+     
+          const element1 = selectedElements[0];
+          const element2 = selectedElements[1];
+          combinationKey = `${element1},${element2}`;
+      if (combinationKey === questions[currentquestionindex].answer ) {
+        currentquestionindex++;
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Correct!'; 
+        renderquestion();
+      } else {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Try again!';
+      }
+    }
+    function renderquestion() {
+      const questiondiv = document.getElementById('Question');
+      questiondiv.innerHTML=  questions[currentquestionindex].question;
+     
+
+    }
+
