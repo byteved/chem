@@ -21,25 +21,8 @@
        '1,20': { symbol: 'H-Ca', name: 'Calcium Monohydride' },
       
       // Helium combinations
-      '2,2': { symbol: 'He-He', name: 'Helium' },
-      '2,3': { symbol: 'He-Li', name: 'Helium Lithium' },
-      '2,4': { symbol: 'He-Be', name: 'Helium Beryllium' },
-      '2,5': { symbol: 'He-B', name: 'Helium Boron' },
-      '2,6': { symbol: 'He-C', name: 'Helium Carbon' },
-      '2,7': { symbol: 'He-N', name: 'Helium Nitrogen' },
-      '2,8': { symbol: 'He-O', name: 'Helium Oxygen' },
-      '2,9': { symbol: 'He-F', name: 'Helium Fluoride' },
-      '2,10': { symbol: 'He-Ne', name: 'Neon' },
-      '2,11': { symbol: 'He-Na', name: 'Disodium Helide' },
-      '2,12': { symbol: 'He-Mg', name: 'Silicon' },
-         '2,13': { symbol: 'He-', name: 'placeholder' },
-         '2,14': { symbol: 'He-', name: 'placeholder' },
-         '2,15': { symbol: 'He-', name: 'placeholder' },
-         '2,16': { symbol: 'He-', name: 'placeholder' },
-         '2,17': { symbol: 'He-', name: 'placeholder' },
-         '2,18': { symbol: 'He-', name: 'placeholder' },
-         '2,19': { symbol: 'He-', name: 'placeholder' },
-         '2,20': { symbol: 'He-', name: 'placeholder' },
+      '2,2': { symbol: 'He-He', name: 'since helium is inert and doesnt mix with anything it has no cominations, this also includes argon.' },
+      
        
 
       // Lithium combinations
@@ -240,8 +223,7 @@
 
       // Argon combinations
       '18,18': { symbol: 'Ar-Ar', name: 'Argon' },
-      '18,19': { symbol: 'Ar-K', name: 'Argon Potassium' },
-      '18,20': { symbol: 'Ar-Ca', name: 'Argon Calcium' },
+      
 
       // Potassium combinations
       '19,19': { symbol: 'K-K', name: 'Potassium' },
@@ -308,6 +290,21 @@
           question:"What two elements create Borax?",
           answer:'5,11',
         },
+        {
+          question:"What two elements create Phosphine?",
+          answer:'1,15',
+        },
+        {
+          question:"What two elements create Sodium Bicarbonate?",
+          answer:'6,11',
+        },
+        {
+          question:"What two elements create Salt?",
+          answer:'11,17',
+        },
+        {
+          question:"good job! you completed the quiz!",
+        },
 
       
     ]
@@ -342,10 +339,15 @@
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = 'Correct!'; 
         renderquestion();
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
       } else {
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = 'Try again!';
       }
+      
     }
     function renderquestion() {
       const questiondiv = document.getElementById('Question');
