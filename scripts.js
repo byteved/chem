@@ -21,7 +21,7 @@
        '1,20': { symbol: 'H-Ca', name: 'Calcium Monohydride' },
       
       // Helium combinations
-      '2,2': { symbol: 'He-He', name: 'since helium is inert and doesnt mix with anything it has no cominations, this also includes argon.' },
+      '2,2': { symbol: 'He-He', name: 'since helium is inert and doesnt mix with anything it has no combinations, this also includes argon.' },
       
        
 
