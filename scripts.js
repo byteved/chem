@@ -428,7 +428,7 @@
       });
       } else {
         const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = 'Try again!';
+        resultDiv.innerHTML = 'Try again! ';
       }
       
     }
